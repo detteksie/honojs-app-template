@@ -22,7 +22,7 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./src/*", "./dist/*"]
+      "|/*": ["./src/*", "./dist/*"]
     }
   },
   "ts-node": {

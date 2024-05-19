@@ -1,8 +1,10 @@
 import { Hono } from 'hono';
-import { authMiddlware } from '~/middlewares/auth.middleware';
-import { CommentService, commentService } from '~/modules/services/comment.service';
+
+import { authMiddlware } from '|/middlewares/auth.middleware';
+import { getUser } from '|/utils/get-user.util';
+
+import { CommentService, commentService } from '../services/comment.service';
 import { commentValidation } from '../validations/comment.validation';
-import { getUser } from '~/utils/get-user.util';
 
 export const newCommentController = (commentService: CommentService) => {
   const app = new Hono()

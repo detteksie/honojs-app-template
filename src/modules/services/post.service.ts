@@ -1,13 +1,10 @@
 import createHttpError from 'http-errors';
-import {
-  AddPostCommentDto,
-  CreatePostDto,
-  PublishPostDto,
-  UpdatePostDto,
-} from '~/modules/dto/post.dto';
-import { Sql, sql } from '~/infrastructures/sql';
-import { paginate } from '~/utils/sequelize-paginate/paginate';
-import { IPaginationOptions } from '~/utils/sequelize-paginate/interfaces';
+
+import { Sql, sql } from '|/infrastructures/sql';
+import { IPaginationOptions } from '|/utils/sequelize-paginate/interfaces';
+import { paginate } from '|/utils/sequelize-paginate/paginate';
+
+import { AddPostCommentDto, CreatePostDto, PublishPostDto, UpdatePostDto } from '../dto/post.dto';
 
 export class PostService {
   constructor(private readonly sql: Sql) {}

@@ -1,10 +1,12 @@
 import { Hono } from 'hono';
-import { authMiddlware } from '~/middlewares/auth.middleware';
-import { paginationMiddleware } from '~/middlewares/pagination.middleware';
-import { PostService, postService } from '~/modules/services/post.service';
-import { getUser } from '~/utils/get-user.util';
-import { getPaginationQuery } from '~/utils/pagination-query.util';
-import { successJson } from '~/utils/response.util';
+
+import { authMiddlware } from '|/middlewares/auth.middleware';
+import { paginationMiddleware } from '|/middlewares/pagination.middleware';
+import { getUser } from '|/utils/get-user.util';
+import { getPaginationQuery } from '|/utils/pagination-query.util';
+import { successJson } from '|/utils/response.util';
+
+import { PostService, postService } from '../services/post.service';
 import { postValidation } from '../validations/post.validation';
 
 export const newPostController = (postService: PostService) => {

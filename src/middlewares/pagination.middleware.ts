@@ -1,5 +1,6 @@
 import { createMiddleware } from 'hono/factory';
-import { checkPaginationDefault } from '~/utils/pagination-query.util';
+
+import { checkPaginationDefault } from '|/utils/pagination-query.util';
 
 export const paginationMiddleware = () =>
   createMiddleware(async (c, next) => {

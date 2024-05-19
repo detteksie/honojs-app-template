@@ -1,7 +1,8 @@
 import { Hono } from 'hono';
-import { AuthService, authService } from '~/modules/services/auth.service';
-import { authValidation } from '~/modules/validations/auth.validation';
-import { LoginDto, RegisterDto } from '~/modules/dto/auth.dto';
+
+import { LoginDto, RegisterDto } from '../dto/auth.dto';
+import { AuthService, authService } from '../services/auth.service';
+import { authValidation } from '../validations/auth.validation';
 
 export const newAuthController = (authService: AuthService) => {
   const app = new Hono()

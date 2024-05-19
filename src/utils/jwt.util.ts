@@ -1,5 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
-import { User } from '~/models/user.model';
+
+import { User } from '|/models/user.model';
 
 export const createToken = (user: User, tokenType: 'access' | 'refresh' = 'access') => {
   const { password, ...usr } = user.toJSON();

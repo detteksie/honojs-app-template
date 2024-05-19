@@ -1,10 +1,12 @@
 import { Hono } from 'hono';
-import { authMiddlware } from '~/middlewares/auth.middleware';
-import { paginationMiddleware } from '~/middlewares/pagination.middleware';
-import { UserService, userService } from '~/modules/services/user.service';
-import { getUser } from '~/utils/get-user.util';
-import { getPaginationQuery } from '~/utils/pagination-query.util';
-import { successJson } from '~/utils/response.util';
+
+import { authMiddlware } from '|/middlewares/auth.middleware';
+import { paginationMiddleware } from '|/middlewares/pagination.middleware';
+import { getUser } from '|/utils/get-user.util';
+import { getPaginationQuery } from '|/utils/pagination-query.util';
+import { successJson } from '|/utils/response.util';
+
+import { UserService, userService } from '../services/user.service';
 import { userValidation } from '../validations/user.validation';
 
 export const newUsersController = (userService: UserService) => {

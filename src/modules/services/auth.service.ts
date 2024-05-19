@@ -1,8 +1,10 @@
 import createHttpError from 'http-errors';
-import { LoginDto, RegisterDto } from '~/modules/dto/auth.dto';
-import { Sql, sql } from '~/infrastructures/sql';
-import { comparePassword } from '~/utils/bcrypt.util';
-import { createToken } from '~/utils/jwt.util';
+
+import { Sql, sql } from '|/infrastructures/sql';
+import { comparePassword } from '|/utils/bcrypt.util';
+import { createToken } from '|/utils/jwt.util';
+
+import { LoginDto, RegisterDto } from '../dto/auth.dto';
 
 export class AuthService {
   constructor(private readonly sql: Sql) {}

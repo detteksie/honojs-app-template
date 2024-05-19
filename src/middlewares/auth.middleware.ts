@@ -1,8 +1,9 @@
 import { createMiddleware } from 'hono/factory';
 import createHttpError from 'http-errors';
 import { JwtPayload } from 'jsonwebtoken';
-import { sql } from '~/infrastructures/sql';
-import { verifyToken } from '~/utils/jwt.util';
+
+import { sql } from '|/infrastructures/sql';
+import { verifyToken } from '|/utils/jwt.util';
 
 export const authMiddlware = (isSearch: boolean = false) =>
   createMiddleware(async (c, next) => {
