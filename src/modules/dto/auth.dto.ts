@@ -1,11 +1,12 @@
 export class RegisterDto {
-  name: string;
-  email: string;
-  password: string;
-  birthdate: Date;
+  declare password: string;
+  declare name: string;
+  declare email: string;
+  declare username: string;
+  declare birthdate?: Date;
 }
 
 export class LoginDto {
-  email: string;
-  password: string;
+  declare userSession: string;
+  declare password: string;
 }

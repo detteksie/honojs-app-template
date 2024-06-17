@@ -16,7 +16,8 @@ const databaseConfig = {
   development: {
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
-    logging: console.log,
+    logQueryParameters: true,
+    benchmark: true,
     migrationStorageTableName: 'sequelize_meta',
   },
   test: {

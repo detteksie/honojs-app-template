@@ -35,9 +35,9 @@ services:
   server:
     image: ssamsara98/hono-app-template:dev
     build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: prerelease
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      target: development
     restart: unless-stopped
     depends_on:
       - postgres
@@ -45,16 +45,16 @@ services:
       - 4000:4000
       - 9229:9229
     volumes:
-      - .:/app:delegated
-      - /app/node_modules
+      - ..:/home/bun/app:delegated
+      - /home/bun/app/node_modules
     networks:
       - net
-    working_dir: /app
-    command: [ "bun", "run", "start:dev" ]
+    working_dir: /home/bun/app
+    command: [ "bun", "dev" ]
     stdin_open: true
     tty: true
     env_file:
-      - .env
+      - ../.env
 
 volumes:
   pgdata:

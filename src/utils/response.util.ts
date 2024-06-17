@@ -15,6 +15,6 @@ export function errorJson<T extends Error>(err: T) {
     status: 'error',
     name: err.name,
     message: err.message,
-    ...(process.env.NODE_ENV === 'development' ? { stack: err.stack } : {}),
+    ...(Bun.env.NODE_ENV === 'development' ? { stack: err.stack } : {}),
   };
 }

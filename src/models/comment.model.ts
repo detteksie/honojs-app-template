@@ -66,13 +66,26 @@ export const commentModel = (sequelize: Sequelize, DT: typeof DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
-      commentatorId: {
-        type: DT.BIGINT,
-        field: 'commentator_id',
-      },
       postId: {
         type: DT.BIGINT,
         field: 'post_id',
+        references: {
+          model: 'posts',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+      commentatorId: {
+        type: DT.BIGINT,
+        field: 'commentator_id',
+        defaultValue: null,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       },
       content: {
         type: DT.TEXT,

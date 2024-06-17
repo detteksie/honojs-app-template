@@ -8,13 +8,13 @@ export const newAuthController = (authService: AuthService) => {
   const app = new Hono()
 
     .post('register', authValidation.register, async (c) => {
-      const body: RegisterDto = await c.req.json();
+      const body = c.req.valid('json') as any as RegisterDto;
       const result = await authService.register(body);
       return c.json(result);
     })
 
     .post('login', authValidation.login, async (c) => {
-      const body: LoginDto = await c.req.json();
+      const body = c.req.valid('json') as any as LoginDto;
       const result = await authService.login(body);
       return c.json(result);
     });

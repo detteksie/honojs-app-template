@@ -1,7 +1,7 @@
 export class UpdateCommentDto {
-  content?: string;
+  declare content?: string;
 }
 
 export class HideCommentDto {
-  hidden?: boolean;
+  declare hidden?: boolean;
 }

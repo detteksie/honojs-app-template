@@ -4,20 +4,22 @@
   "description": "Template for HonoJS Web Application",
   "author": "S Abd Malik",
   "license": "MIT",
-  "main": "src/main.ts",
+  "module": "src/index",
   "scripts": {
-    "start": "bun run .",
-    "start:dev": "cross-env NODE_ENV=development bun run --hot --watch .",
-    "format": "prettier -w \"{config,db,public,src,test}/**/*.{md,html,css,json,js,ts}\"",
-    "lint": "eslint \"{config,db,src,test}/**/*.ts\" --fix",
+    "start": "bun run --hot dist/index.js",
+    "dev": "cross-env NODE_ENV=development bun run --hot --watch .",
+    "prebuild": "rimraf dist",
+    "build": "bun build src/index.ts --target=bun --outdir dist --sourcemap=external -e elysia-rate-limit",
+    "postbuild": "tsc -p tsconfig.build.json",
+    "format": "prettier --log-level warn -w \"{config,db,public,src,test}/**/*.{md,html,css,scss,json,jsonc,js,ts}\"",
+    "lint": "eslint \"{config,db,src,test}/**/*.{js,ts}\" --cache --fix",
     "seq": "env-cmd sequelize",
     "prepare": "husky"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.2.2",
-    "@hono/zod-openapi": "^0.11.0",
+    "@hono/zod-openapi": "^0.14.4",
     "@hono/zod-validator": "^0.2.1",
-    "bcrypt": "^5.1.1",
     "hono": "^4.2.8",
     "http-errors": "^2.0.0",
     "husky": "^9.0.11",
@@ -28,12 +30,12 @@
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
     "@types/http-errors": "^2.0.4",
     "@types/jsonwebtoken": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@typescript-eslint/parser": "^7.9.0",
+    "bun-types": "^1.1.0",
     "cross-env": "^7.0.3",
     "env-cmd": "^10.1.0",
     "eslint": "^8",
@@ -45,15 +47,13 @@
     "prettier": "^3.2.5",
     "tsconfig-paths": "^4.2.0"
   },
+  "trustedDependencies": [
+    "es5-ext"
+  ],
   "repository": "https://github.com/ssamsara98/hono-app-template.git",
   "bugs": "https://github.com/ssamsara98/hono-app-template/issues",
-  "homepage": "https://github.com/ssamsara98/hono-app-template#readme",
   "lint-staged": {
-    "*.{md,html,css,json}": "prettier -w",
+    "*.{md,html,css,scss,json,jsonc}": "prettier --write",
     "*.{js,ts}": "eslint --cache --fix"
-  },
-  "trustedDependencies": [
-    "bcrypt",
-    "es5-ext"
-  ]
+  }
 }

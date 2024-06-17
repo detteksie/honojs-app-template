@@ -1,11 +1,11 @@
 export class CreateUserDto {
-  name: string;
-  email: string;
-  password: string;
-  birthdate?: Date;
+  declare name: string;
+  declare email: string;
+  declare password: string;
+  declare birthdate?: Date;
 }
 
 export class UpdateUserDto {
-  name: string;
-  birthdate?: Date;
+  declare name: string;
+  declare birthdate?: Date;
 }

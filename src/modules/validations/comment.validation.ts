@@ -1,5 +1,5 @@
+import { z } from '@hono/zod-openapi';
 import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
 
 export class CommentValidation {
   commentId = zValidator(

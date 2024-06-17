@@ -1,13 +1,14 @@
+import { z } from '@hono/zod-openapi';
 import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
 
 export class AuthValidation {
   register = zValidator(
     'json',
     z.object({
-      name: z.string().max(255),
       email: z.string().email().trim(),
+      username: z.string().max(255),
       password: z.string().min(8).max(64),
+      name: z.string().max(255),
       birthdate: z.date().optional(),
     }),
   );
@@ -15,7 +16,7 @@ export class AuthValidation {
   login = zValidator(
     'json',
     z.object({
-      email: z.string().email(),
+      userSession: z.string(),
       password: z.string().min(8).max(64),
     }),
   );

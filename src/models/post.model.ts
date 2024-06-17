@@ -93,6 +93,8 @@ export const postModel = (sequelize: Sequelize, DT: typeof DataTypes) => {
           model: 'users',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
         validate: {
           isInt: true,
         },

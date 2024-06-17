@@ -7,7 +7,7 @@ export const createToken = (user: User, tokenType: 'access' | 'refresh' = 'acces
   const payload = { sub: usr.id };
 
   let expiresIn = '30m';
-  if (process.env.NODE_ENV === 'production') {
+  if (Bun.env.NODE_ENV === 'production') {
     if (tokenType === 'refresh') expiresIn = '30d';
     else if (tokenType === 'access') expiresIn = '1d';
   } else {
@@ -17,7 +17,7 @@ export const createToken = (user: User, tokenType: 'access' | 'refresh' = 'acces
 
   const token = sign(
     payload,
-    tokenType === 'refresh' ? process.env.JWT_REFRESH_SECRET! : process.env.JWT_ACCESS_SECRET!,
+    tokenType === 'refresh' ? Bun.env.JWT_REFRESH_SECRET! : Bun.env.JWT_ACCESS_SECRET!,
     { expiresIn },
   );
   return token;
@@ -26,7 +26,7 @@ export const createToken = (user: User, tokenType: 'access' | 'refresh' = 'acces
 export const verifyToken = (token: string, tokenType: 'access' | 'refresh' = 'access') => {
   const payload = verify(
     token,
-    tokenType === 'refresh' ? process.env.JWT_REFRESH_SECRET! : process.env.JWT_ACCESS_SECRET!,
+    tokenType === 'refresh' ? Bun.env.JWT_REFRESH_SECRET! : Bun.env.JWT_ACCESS_SECRET!,
   );
   return payload;
 };

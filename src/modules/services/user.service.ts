@@ -1,8 +1,7 @@
 import createHttpError from 'http-errors';
 
 import { Sql, sql } from '|/infrastructures/sql';
-import { IPaginationOptions } from '|/utils/sequelize-paginate/interfaces';
-import { paginate } from '|/utils/sequelize-paginate/paginate';
+import { IPaginationOptions, paginate } from '|/utils/sequelize-paginate';
 
 import { UpdateUserDto } from '../dto/user.dto';
 

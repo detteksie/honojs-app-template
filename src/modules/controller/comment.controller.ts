@@ -8,24 +8,38 @@ import { commentValidation } from '../validations/comment.validation';
 
 export const newCommentController = (commentService: CommentService) => {
   const app = new Hono()
+
     .use(authMiddlware())
-    .patch('/:commentId', commentValidation.updateComment, async (c) => {
+
+    .patch(
+      '/c/:commentId',
+      commentValidation.commentId,
+      commentValidation.updateComment,
+      async (c) => {
+        const user = getUser(c);
+        const { commentId } = c.req.valid('param');
+        const body = c.req.valid('json');
+        await commentService.updateComment(user.id, parseInt(commentId), body);
+        return c.json(null, 204);
+      },
+    )
+
+    .patch(
+      '/c/:commentId/hide',
+      commentValidation.commentId,
+      commentValidation.hideComment,
+      async (c) => {
+        const user = getUser(c);
+        const { commentId } = c.req.valid('param');
+        const body = c.req.valid('json');
+        await commentService.hideComment(user.id, parseInt(commentId), body);
+        return c.json(null, 204);
+      },
+    )
+
+    .delete('/c/:commentId', commentValidation.commentId, async (c) => {
       const user = getUser(c);
-      const commentId = c.req.param('commentId');
-      const body = await c.req.json();
-      await commentService.updateComment(user.id, parseInt(commentId), body);
-      return c.json(null, 204);
-    })
-    .patch('/:commentId/hide', commentValidation.hideComment, async (c) => {
-      const user = getUser(c);
-      const commentId = c.req.param('commentId');
-      const body = await c.req.json();
-      await commentService.hideComment(user.id, parseInt(commentId), body);
-      return c.json(null, 204);
-    })
-    .delete('/:commentId', commentValidation.commentId, async (c) => {
-      const user = getUser(c);
-      const commentId = c.req.param('commentId');
+      const { commentId } = c.req.valid('param');
       await commentService.deleteComment(user.id, parseInt(commentId));
       return c.json(null, 204);
     });

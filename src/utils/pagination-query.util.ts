@@ -2,7 +2,6 @@ import { Context } from 'hono';
 
 export class PaginationQuery {
   declare page: number;
-
   declare limit: number;
 }
 
@@ -26,6 +25,8 @@ export function checkPaginationDefault(
   if (!query['page'] || +query['page'] < value.minPage!) query['page'] = value.page!;
   if (!query['limit'] || +query['limit'] < value.minLimit!) query['limit'] = value.limit!;
 }
+
+export type PaginationQueryVariables = { pagination: { page: number; limit: number } };
 
 export const getPaginationQuery = (c: Context) => {
   const user = c.get('pagination');

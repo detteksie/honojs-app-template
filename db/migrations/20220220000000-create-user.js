@@ -2,53 +2,56 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const { DataTypes: DT } = Sequelize;
     await queryInterface.createTable('users', {
       createdAt: {
-        type: Sequelize.DATE,
+        type: DT.DATE,
         field: 'created_at',
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
-        type: Sequelize.DATE,
+        type: DT.DATE,
         field: 'updated_at',
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.fn('NOW'),
       },
       deletedAt: {
-        type: Sequelize.DATE,
+        type: DT.DATE,
         field: 'deleted_at',
         allowNull: true,
       },
       id: {
-        type: Sequelize.BIGINT,
+        type: DT.BIGINT,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       email: {
-        type: Sequelize.STRING,
+        type: DT.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-          isEmail: { msg: 'Email is invalid' },
-        },
+      },
+      username: {
+        type: DT.STRING,
+        allowNull: false,
+        unique: true,
       },
       password: {
-        type: Sequelize.STRING,
+        type: DT.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: DT.STRING,
         allowNull: false,
       },
       sexType: {
-        type: Sequelize.ENUM('Unknown', 'Male', 'Female'),
+        type: DT.ENUM('Unknown', 'Male', 'Female'),
         field: 'sex_type',
         defaultValue: 'Unknown',
       },
       birthdate: {
-        type: Sequelize.DATE,
+        type: DT.DATE,
       },
     });
   },

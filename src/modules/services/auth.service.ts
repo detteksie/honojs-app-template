@@ -13,34 +13,44 @@ export class AuthService {
     throw createHttpError(400, 'Email or Password is invalid');
   }
 
-  private async findEmail(email: string) {
-    const user = await this.sql.User.findOne({ where: { email } });
-    if (user) {
-      throw createHttpError(409, 'Email already exist');
-    }
-  }
-
-  async register(registerDto: RegisterDto) {
-    const { name, email, password, birthdate } = registerDto;
-    await this.findEmail(email);
-    const user = await this.sql.User.create({
-      name,
-      email,
-      password,
-      birthdate,
+  private async findEmailOrUsername(
+    email: string,
+    username: string,
+    needPassword: boolean = false,
+  ) {
+    const user = await this.sql.User.findOne({
+      where: { [this.sql.Sequelize.Op.or]: { email, username } },
+      ...(needPassword ? { attributes: { include: ['password'] } } : {}),
     });
     return user;
   }
 
-  async login(loginDto: LoginDto) {
-    const { email, password } = loginDto;
-    const user = await this.sql.User.findOne({
-      where: { email },
-      attributes: { include: ['password'] },
-    });
-    if (!user) this.loginError();
+  async register(registerDto: RegisterDto) {
+    const { email, username, password, name, birthdate } = registerDto;
 
-    const passwordMatched = await comparePassword(password, user.password);
+    const foundUser = await this.findEmailOrUsername(email, username);
+    if (foundUser) {
+      throw createHttpError(409, 'Email and/or Username already exist');
+    }
+
+    const user = await this.sql.User.create({
+      email,
+      username,
+      password,
+      name,
+      birthdate,
+    });
+    user.setDataValue('password', '');
+    return user;
+  }
+
+  async login(loginDto: LoginDto) {
+    const { userSession, password } = loginDto;
+
+    const user = await this.findEmailOrUsername(userSession, userSession, true);
+    if (!user) throw this.loginError();
+
+    const passwordMatched = await comparePassword(password, user?.password!);
     if (!passwordMatched) this.loginError();
 
     const tokens = {
