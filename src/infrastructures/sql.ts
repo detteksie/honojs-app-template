@@ -1,9 +1,9 @@
 import Sequelize from 'sequelize';
 
-import databaseConfig, { DatabaseConfig } from 'cfg/database.config';
 import { Comment, commentModel } from '|/models/comment.model';
 import { Post, postModel } from '|/models/post.model';
 import { User, userModel } from '|/models/user.model';
+import databaseConfig, { DatabaseConfig } from '|db/database.config';
 
 const env = Bun.env.NODE_ENV! || 'development';
 const config = databaseConfig[env as keyof DatabaseConfig];
@@ -53,7 +53,6 @@ export class Sql extends Models {
     const [_, err] = await sequelize
       .authenticate()
       .then(() => {
-        // debug('SQL Connection has been established successfully.');
         console.log('SQL Connection has been established successfully.');
         return [null, null];
       })
