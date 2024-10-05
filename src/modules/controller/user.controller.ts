@@ -23,8 +23,8 @@ export const newUsersController = (userService: UserService) => {
     })
 
     .get('/u/:userId', userValidation.userId, async (c) => {
-      const params = c.req.valid('param');
-      const result = await userService.getUser(parseInt(params.userId));
+      const { userId } = c.req.valid('param');
+      const result = await userService.getUser(parseInt(userId));
       return c.json(successJson(result));
     })
 
@@ -48,7 +48,7 @@ export const newUsersController = (userService: UserService) => {
 
     .patch('/me', authMiddlware(), userValidation.updateProfile, async (c) => {
       const user = getUser(c);
-      const body = c.req.valid('json') as any;
+      const body = c.req.valid('json');
       await userService.updateUser(user.id, body);
       c.status(204);
       return c.json({});

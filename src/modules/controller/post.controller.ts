@@ -33,7 +33,7 @@ export const newPostController = (postService: PostService) => {
 
     .post('/', postValidation.createPost, async (c) => {
       const user = getUser(c);
-      const body = c.req.valid('json') as any;
+      const body = c.req.valid('json');
       const result = await postService.createPost(user.id, body);
       c.status(201);
       return c.json(successJson(result));
@@ -46,7 +46,7 @@ export const newPostController = (postService: PostService) => {
       async (c) => {
         const user = getUser(c);
         const { postId } = c.req.valid('param');
-        const body = c.req.valid('json') as any;
+        const body = c.req.valid('json');
         const result = await postService.addPostComment(user.id, parseInt(postId), body);
         c.status(201);
         return c.json(successJson(result));

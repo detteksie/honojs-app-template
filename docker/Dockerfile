@@ -52,7 +52,6 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 FROM node AS release
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=install /temp/prod/package.json /temp/prod/bun.lockb ./
-COPY --from=build /home/bun/app/config config
 COPY --from=build /home/bun/app/db db
 COPY --from=build /home/bun/app/dist dist
 COPY --from=build /home/bun/app/tsconfig.json /home/bun/app/.sequelizerc ./

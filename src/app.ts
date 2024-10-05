@@ -30,7 +30,11 @@ export const newApp = () => {
 
     .onError(async (err, c) => {
       const newErr = errorJson(err);
-      return c.json(newErr, (err as any).status || 500);
+      return c.json(
+        newErr,
+        // @ts-expect-error nothing
+        err.status || 500,
+      );
     });
 
   return app;

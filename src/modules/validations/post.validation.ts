@@ -1,43 +1,23 @@
-import { z } from '@hono/zod-openapi';
 import { zValidator } from '@hono/zod-validator';
 
+import {
+  addPostCommentDto,
+  createPostDto,
+  postIdParam,
+  publishPostDto,
+  updatePostDto,
+} from '../dto/post.dto';
+
 export class PostValidation {
-  createPost = zValidator(
-    'json',
-    z.object({
-      title: z.string().max(255),
-      content: z.string(),
-    }),
-  );
+  postId = zValidator('param', postIdParam);
 
-  postId = zValidator(
-    'param',
-    z.object({
-      postId: z.string(),
-    }),
-  );
+  createPost = zValidator('json', createPostDto);
 
-  updatePost = zValidator(
-    'json',
-    z.object({
-      title: z.string().max(255).optional(),
-      content: z.string().optional(),
-    }),
-  );
+  updatePost = zValidator('json', updatePostDto);
 
-  publishPost = zValidator(
-    'json',
-    z.object({
-      isPublished: z.boolean().optional(),
-    }),
-  );
+  publishPost = zValidator('json', publishPostDto);
 
-  addPostComment = zValidator(
-    'json',
-    z.object({
-      content: z.string(),
-    }),
-  );
+  addPostComment = zValidator('json', addPostCommentDto);
 }
 
 export const postValidation = new PostValidation();

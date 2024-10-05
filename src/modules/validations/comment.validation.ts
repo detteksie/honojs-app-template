@@ -1,27 +1,13 @@
-import { z } from '@hono/zod-openapi';
 import { zValidator } from '@hono/zod-validator';
 
+import { commentIdParam, hideCommentDto, updateCommentDto } from '../dto/comment.dto';
+
 export class CommentValidation {
-  commentId = zValidator(
-    'param',
-    z.object({
-      commentId: z.string(),
-    }),
-  );
+  commentId = zValidator('param', commentIdParam);
 
-  updateComment = zValidator(
-    'json',
-    z.object({
-      content: z.string().optional(),
-    }),
-  );
+  updateComment = zValidator('json', updateCommentDto);
 
-  hideComment = zValidator(
-    'json',
-    z.object({
-      hidden: z.boolean().optional(),
-    }),
-  );
+  hideComment = zValidator('json', hideCommentDto);
 }
 
 export const commentValidation = new CommentValidation();

@@ -50,7 +50,7 @@ export class AuthService {
     const user = await this.findEmailOrUsername(userSession, userSession, true);
     if (!user) throw this.loginError();
 
-    const passwordMatched = await comparePassword(password, user?.password!);
+    const passwordMatched = await comparePassword(password, user.password);
     if (!passwordMatched) this.loginError();
 
     const tokens = {

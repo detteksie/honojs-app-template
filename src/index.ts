@@ -1,3 +1,4 @@
+import './global';
 import { newApp } from './app';
 import { sql } from './infrastructures/sql';
 

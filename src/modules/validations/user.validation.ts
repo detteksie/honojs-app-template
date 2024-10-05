@@ -1,31 +1,13 @@
-import { z } from '@hono/zod-openapi';
 import { zValidator } from '@hono/zod-validator';
 
+import { createUserDto, updateUserDto, userIdParam } from '../dto/user.dto';
+
 export class UserValidation {
-  createUser = zValidator(
-    'json',
-    z.object({
-      name: z.string().max(255),
-      email: z.string().email().trim(),
-      password: z.string().min(8).max(64),
-      birthdate: z.date().optional(),
-    }),
-  );
+  createUser = zValidator('json', createUserDto);
 
-  userId = zValidator(
-    'param',
-    z.object({
-      userId: z.string({}),
-    }),
-  );
+  userId = zValidator('param', userIdParam);
 
-  updateProfile = zValidator(
-    'json',
-    z.object({
-      name: z.string().max(255),
-      birthdate: z.date().optional(),
-    }),
-  );
+  updateProfile = zValidator('json', updateUserDto);
 }
 
 export const userValidation = new UserValidation();

@@ -3,7 +3,6 @@ export const hashPassword = async (password: string) => {
     algorithm: 'bcrypt',
     cost: 12, // number between 4-31
   });
-
   return hash;
 };
 

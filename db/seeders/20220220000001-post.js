@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
@@ -7286,6 +7287,7 @@ module.exports = {
       return modifiedPost;
     });
     await queryInterface.bulkInsert('posts', posts);
+    await queryInterface.sequelize.query(`select setval('posts_id_seq', 1000);`);
   },
 
   async down(queryInterface, Sequelize) {
